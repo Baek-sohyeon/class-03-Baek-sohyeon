@@ -9,8 +9,10 @@ def iterfibo(n):
     a = 0
     b = 1
     tmp = 0
-    if (n <= 1):
+    if (n == 1):
         return 1
+    elif (n == 0):
+        return 0
     else:
         for i in range(n-1):
             tmp = a+b
