@@ -100,8 +100,7 @@ class Calculator(QWidget):
 
             if key == '=':
                 result = str(eval(self.display.text()))
-                # 부동소수를 처리해준 값을 리턴해줍니다!
-                self.display.setText(calcFunctions.floatPoint(result))
+                self.display.setText(result)
 
             elif key == 'C':
                 self.display.setText('')
