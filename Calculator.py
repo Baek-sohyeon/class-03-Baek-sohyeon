@@ -89,7 +89,7 @@ class Calculator(QWidget):
 
     def buttonClicked(self):
         calculator = ['3.141592','3E+8','340','1.5E+8']
-        func = [calcFunctions.factorial, calcFunctions.decToBin, calcFunctions.binToDec, calcFunctions.decToBin, calcFunctions.decToRoman]
+        func = [calcFunctions.factorial, calcFunctions.decToBin, calcFunctions.binToDec, calcFunctions.decToBin, calcFunctions.decToRoman, calcFunctions.RomanTodec]
         try:
 
             if self.display.text() == 'Error!':
@@ -100,7 +100,8 @@ class Calculator(QWidget):
 
             if key == '=':
                 result = str(eval(self.display.text()))
-                self.display.setText(result)
+                # 부동소수를 처리해준 값을 리턴해줍니다!
+                self.display.setText(calcFunctions.floatPoint(result))
 
             elif key == 'C':
                 self.display.setText('')
@@ -112,11 +113,11 @@ class Calculator(QWidget):
                         self.display.setText(self.display.text() + calculator[i])
 
 
-            elif key in functionList:
-                for i in range(len(functionList)):
-                    if key == functionList[i]:
-                        n = self.display.text()
-                        value = func[i](n)
+            elif key in functionList: #버튼 확인
+                for i in range(len(functionList)): #i는 인덱스 확인
+                    if key == functionList[i]:      #키는 버튼 이름
+                        n = self.display.text()     #n은 입력 돼 있는 숫자
+                        value = func[i](n)          #func에서 해당하는 함수 찾아서 n 넣음
                         self.display.setText(str(value))
 
             else:
