@@ -2,8 +2,7 @@ import random
 
 class Word:
 
-    def __init__(self, filename):
-
+    def __init__(self, filename, minLength): # minLength 받을 문자의 최소길이
         self.words = []
         f = open(filename, 'r')
         lines = f.readlines()
@@ -12,8 +11,9 @@ class Word:
         self.count = 0
         for line in lines:
             word = line.rstrip()
-            self.words.append(word)
-            self.count += 1
+            if len(word) >= minLength:
+                self.words.append(word) # 단어의 길이가 minLength보다 길어야함
+                self.count += 1
 
         print('%d words in DB' % self.count)
 

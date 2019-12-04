@@ -1,29 +1,20 @@
 class Guess:
 
     def __init__(self, word):
-
         self.secretWord = word
-        self.guessedChars = set()
-        self.numTries = 0
         self.currentStatus = '_' * len(word)
-
-
-    def display(self):
-
-        print('단어:' + self.currentStatus)
-        print('시도횟수:' + str(self.numTries))
+        self.guessedChars = {''}
+        self.guess('')
 
 
     def guess(self, character):
-
-        self.guessedChars  |= {character}   #guessedChars 집합에 입력받은 새로운 문자를 합집합 시킨다.
-        if character not in self.secretWord:    #입력한 문자가 단어가 필요없는 문자라면
-            self.numTries += 1
+        self.guessedChars |= {character}
+        if character not in self.secretWord:
             return False
-
         else:
             currentStatus = ''
-            for c in self.secretWord:       #단어의 첫번째 문자부터 뽑음
+            matches = 0
+            for c in self.secretWord:
                 if c in self.guessedChars:
                     currentStatus += c
                 else:
@@ -31,5 +22,25 @@ class Guess:
 
             self.currentStatus = currentStatus
 
+            return True
 
 
+    def finished(self):
+        if self.currentStatus == self.secretWord:
+            return True
+        else:
+            return False
+
+
+    def displayCurrent(self):
+        guessWord = ''
+        for c in self.currentStatus:
+            guessWord += (c + ' ')
+        return guessWord
+
+
+    def displayGuessed(self):
+        guessed = ''
+        for c in sorted(list(self.guessedChars)):
+            guessed += (c + ' ')
+        return guessed
